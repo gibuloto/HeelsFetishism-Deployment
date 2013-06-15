@@ -1,0 +1,65 @@
+server {
+    listen 80;
+    server_name www.{{ pillar['project']['domain'] }};
+    return 301 $scheme://{{ pillar['project']['domain'] }}$request_uri;
+}
+
+server {
+    listen 80;
+    server_name {{ pillar['project']['domain'] }};
+
+    access_log {{ pillar['system']['home_path'] }}/logs/nginx.log;
+    error_log {{ pillar['system']['home_path'] }}/logs/nginx.log;
+
+    client_max_body_size 50m;
+
+    gzip on;
+    gzip_min_length 1024;
+    gzip_buffers 16 8k;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+    location /favicon.ico {
+        alias {{ pillar['project']['path'] }}/static/favicon.ico;
+        access_log off;
+    }
+
+    location /robots.txt {
+        alias {{ pillar['project']['path'] }}/static/robots.txt;
+        access_log off;
+    }
+
+    location /humans.txt {
+        alias {{ pillar['project']['path'] }}/static/humans.txt;
+        access_log off;
+    }
+
+    location /static/ {
+        alias {{ pillar['project']['path'] }}/static_root/;
+        access_log off;
+    }
+
+    location /upload/ {
+        alias {{ pillar['project']['path'] }}/upload/;
+        access_log off;
+    }
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass 127.0.0.1:3031;
+    }
+
+    error_page 403 /403.html;
+    location = /403.html {
+        root {{ pillar['project']['path'] }}/templates;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        root {{ pillar['project']['path'] }}/templates;
+    }
+
+    error_page 500 502 503 504 /50x.html;
+    location = /50x.html {
+        root {{ pillar['project']['path'] }}/templates;
+    }
+}
