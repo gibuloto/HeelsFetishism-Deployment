@@ -1,0 +1,7 @@
+*.pyc
+*.pub
+id_rsa
+
+pillar/settings.sls
+salt/scrapy/config/settings_prod.py
+salt/ssh/keys
