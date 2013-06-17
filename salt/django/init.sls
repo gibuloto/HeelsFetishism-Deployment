@@ -56,18 +56,11 @@ project-upload-dir:
 project-virtualenv:
   virtualenv.manage:
     - name: {{ pillar['project']['virtualenv_path'] }}
-    - requirements: {{ pillar['project']['path'] }}/requirements.txt
     - no_site_packages: true
     - runas: {{ pillar['system']['user'] }}
     - require:
-      - file: project-upload-dir
-      - git: project-repo
-      # - pkg: django-common-packages
-      - pkg: lxml-packages
-      - pkg: memcache-lib-packages
-      - pkg: pil-packages
-      - pkg: postgresql-client-packages
       - pkg: python-packages
+      - user: create-user
 
 project-virtualenv-postactivate:
   file.managed:
@@ -80,6 +73,28 @@ project-virtualenv-postactivate:
     - require:
       - virtualenv: project-virtualenv
 
+distribute:
+  pip.installed:
+    - bin_env: {{ pillar['project']['virtualenv_path'] }}
+    - upgrade: True
+    - require:
+      - pkg: python-packages
+      - virtualenv: project-virtualenv
+
+project-pip-requirements:
+  pip.installed:
+    - bin_env: {{ pillar['project']['virtualenv_path'] }}
+    - requirements: {{ pillar['project']['path'] }}/requirements.txt
+    - require:
+      - git: project-repo
+      # - pkg: django-common-packages
+      - pkg: lxml-packages
+      - pkg: memcache-lib-packages
+      - pkg: pil-packages
+      - pkg: postgresql-client-packages
+      - pkg: python-packages
+      - virtualenv: project-virtualenv
+
 project-supervisor-conf:
   file.managed:
     - template: jinja
@@ -89,9 +104,10 @@ project-supervisor-conf:
     - group: root
     - require:
       - file: logs-dir
+      - file: project-upload-dir
       - file: uwsgi-conf
+      - pip: project-pip-requirements
       - pkg: supervisor-packages
-      - virtualenv: project-virtualenv
 
 project-supervisorctl-update:
   cmd.wait:
