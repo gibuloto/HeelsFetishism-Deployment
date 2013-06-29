@@ -38,7 +38,7 @@ run-setup_locale:
 
 logs-dir:
   file.directory:
-    - name: {{ pillar['system']['home_path'] }}/logs/
+    - name: {{ pillar['system']['log_path'] }}
     - user: {{ pillar['system']['user'] }}
     - group: {{ pillar['system']['user'] }}
     - makedirs: True
@@ -62,6 +62,19 @@ general-packages:
       - build-essential
       - git-core
       - htop
+      - s3cmd
       - vim
     - require:
       - cmd: run-setup_locale
+
+s3cmd-config:
+  file.managed:
+    - template: jinja
+    - name: {{ pillar['system']['home_path'] }}/.s3cfg
+    - source: salt://common/files/s3cfg.template
+    - user: {{ pillar['system']['user'] }}
+    - group: {{ pillar['system']['user'] }}
+    - mode: 0600
+    - require:
+      - pkg: general-packages
+      - user: create-user

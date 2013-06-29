@@ -8,8 +8,8 @@ server {
     listen 80;
     server_name {{ pillar['project']['domain'] }};
 
-    access_log {{ pillar['system']['home_path'] }}/logs/nginx.log;
-    error_log {{ pillar['system']['home_path'] }}/logs/nginx.log;
+    access_log {{ pillar['system']['log_path'] }}/nginx.log;
+    error_log {{ pillar['system']['log_path'] }}/nginx.log;
 
     client_max_body_size 50m;
 
