@@ -87,6 +87,7 @@ project-pip-requirements:
     - requirements: {{ pillar['project']['path'] }}/requirements.txt
     - require:
       - git: project-repo
+      - pip: distribute
       # - pkg: django-common-packages
       - pkg: lxml-packages
       - pkg: memcache-lib-packages
