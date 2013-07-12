@@ -1,5 +1,6 @@
 include:
   - common
+  - python
   - postgresql.client
 
 postgresql-server-packages:
@@ -61,4 +62,35 @@ postgresql-hba:
     - user: postgres
     - group: postgres
     - require:
+      - pkg: postgresql-server-packages
+
+boto-packages:
+  pip.installed:
+    - names:
+      - boto
+    - require:
+      - pkg: python-packages
+
+file-backup_postgresql:
+  file.managed:
+    - template: jinja
+    - name: {{ pillar['system']['home_path'] }}/backup_postgresql.py
+    - source: salt://postgresql/server/scripts/backup_postgresql.py
+    - user: {{ pillar['system']['user'] }}
+    - group: {{ pillar['system']['user'] }}
+    - mode: 0777
+    - recurse:
+      - user
+      - group
+    - require:
+      - user: create-user
+
+crontab-backup_postgresql:
+  cron.present:
+    - name: "python {{ pillar['system']['home_path'] }}/backup_postgresql.py"
+    - user: postgres
+    - minute: "26"
+    - hour: "9"
+    - require:
+      - file: file-backup_postgresql
       - pkg: postgresql-server-packages
