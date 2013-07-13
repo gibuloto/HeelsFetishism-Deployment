@@ -1,6 +1,6 @@
 include:
   - common
-  - python
+  - python.boto
   - supervisor.common
 
 imgseek-packages:
@@ -60,3 +60,26 @@ supervisorctl-restart-imgseek:
     - watch:
       - file: iskdaemon-conf
       - file: imgseek-supervisor-conf
+
+file-backup_imgseek:
+  file.managed:
+    - template: jinja
+    - name: {{ pillar['system']['home_path'] }}/backup_imgseek.py
+    - source: salt://imgseek/scripts/backup_imgseek.py
+    - user: {{ pillar['system']['user'] }}
+    - group: {{ pillar['system']['user'] }}
+    - mode: 0777
+    - recurse:
+      - user
+      - group
+    - require:
+      - user: create-user
+
+crontab-backup_imgseek:
+  cron.present:
+    - name: "python {{ pillar['system']['home_path'] }}/backup_imgseek.py"
+    - user: {{ pillar['system']['user'] }}
+    - minute: "46"
+    - hour: "9"
+    - require:
+      - file: file-backup_imgseek

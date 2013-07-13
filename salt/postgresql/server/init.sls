@@ -1,6 +1,6 @@
 include:
   - common
-  - python
+  - python.boto
   - postgresql.client
 
 postgresql-server-packages:
@@ -64,13 +64,6 @@ postgresql-hba:
     - require:
       - pkg: postgresql-server-packages
 
-boto-packages:
-  pip.installed:
-    - names:
-      - boto
-    - require:
-      - pkg: python-packages
-
 file-backup_postgresql:
   file.managed:
     - template: jinja
@@ -93,4 +86,3 @@ crontab-backup_postgresql:
     - hour: "9"
     - require:
       - file: file-backup_postgresql
-      - pkg: postgresql-server-packages
