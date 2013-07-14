@@ -86,7 +86,6 @@ project-pip-requirements:
     - bin_env: {{ pillar['project']['virtualenv_path'] }}
     - requirements: {{ pillar['project']['path'] }}/requirements.txt
     - require:
-      - git: project-repo
       - pip: distribute
       # - pkg: django-common-packages
       - pkg: lxml-packages

@@ -27,40 +27,28 @@ bower:
     - require:
       - pkg: nodejs
 
-# grunt:
-#   npm.installed:
-#     - name: grunt-cli
-#     - runas: root
-#     - require:
-#       - pkg: nodejs
-
-# bower:
-#   npm.installed:
-#     - name: bower
-#     - runas: root
-#     - require:
-#       - pkg: nodejs
-
 project-npm-install:
-  cmd.run:
+  cmd.wait:
     - name: "npm install"
     - cwd: {{ pillar['project']['path'] }}
     - user: {{ pillar['system']['user'] }}
     - require:
       - pkg: nodejs
+    - watch:
       - git: project-repo
 
 project-bower-install:
-  cmd.run:
+  cmd.wait:
     - name: "bower install"
     - cwd: {{ pillar['project']['path'] }}
     - user: {{ pillar['system']['user'] }}
     - require:
       - cmd: bower
+    - watch:
       - git: project-repo
 
 project-grunt-build:
-  cmd.run:
+  cmd.wait:
     - name: "grunt build"
     - cwd: {{ pillar['project']['path'] }}
     - user: {{ pillar['system']['user'] }}
@@ -69,12 +57,15 @@ project-grunt-build:
       - cmd: bower
       - cmd: project-npm-install
       - cmd: project-bower-install
+    - watch:
       - git: project-repo
 
 project-collectstatic:
-  cmd.run:
+  cmd.wait:
     - name: "{{ pillar['project']['virtualenv_path'] }}/bin/python manage.py collectstatic --noinput"
     - cwd: {{ pillar['project']['path'] }}
     - user: {{ pillar['system']['user'] }}
     - require:
       - cmd: project-grunt-build
+    - watch:
+      - git: project-repo
