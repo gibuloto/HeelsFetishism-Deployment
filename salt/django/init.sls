@@ -73,10 +73,11 @@ project-virtualenv-postactivate:
     - require:
       - virtualenv: project-virtualenv
 
-distribute:
-  pip.installed:
-    - bin_env: {{ pillar['project']['virtualenv_path'] }}
-    - upgrade: True
+install-distribute:
+  cmd.run:
+    - name: "{{ pillar['project']['virtualenv_path'] }}/bin/pip install distribute==0.7.3"
+    - cwd: {{ pillar['project']['path'] }}
+    - user: {{ pillar['system']['user'] }}
     - require:
       - pkg: python-packages
       - virtualenv: project-virtualenv
@@ -85,14 +86,14 @@ project-pip-requirements:
   pip.installed:
     - bin_env: {{ pillar['project']['virtualenv_path'] }}
     - requirements: {{ pillar['project']['path'] }}/requirements.txt
+    - user: {{ pillar['system']['user'] }}
     - require:
-      - pip: distribute
+      - cmd: install-distribute
       # - pkg: django-common-packages
       - pkg: lxml-packages
       - pkg: memcache-lib-packages
       - pkg: pil-packages
       - pkg: postgresql-client-packages
-      - pkg: python-packages
       - virtualenv: project-virtualenv
 
 project-supervisor-conf:
