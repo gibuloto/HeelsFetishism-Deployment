@@ -16,6 +16,7 @@ crawler-requirements:
   pip.installed:
     - bin_env: {{ pillar['project']['virtualenv_path'] }}
     - requirements: {{ pillar['crawler']['path'] }}/requirements.txt
+    - user: {{ pillar['system']['user'] }}
     - require:
       - git: crawler-repo
       - pkg: python-packages

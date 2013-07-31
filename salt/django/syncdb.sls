@@ -8,7 +8,7 @@ project-syncdb:
     - cwd: {{ pillar['project']['path'] }}
     - user: {{ pillar['system']['user'] }}
     - require:
-      - virtualenv: project-virtualenv
+      - pip: project-pip-requirements
       - postgres_database: postgresql-db
     - watch:
       - git: project-repo
