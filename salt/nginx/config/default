@@ -58,8 +58,8 @@ server {
         root {{ pillar['project']['path'] }}/templates;
     }
 
-    error_page 500 502 503 504 /50x.html;
-    location = /50x.html {
+    error_page 500 /500.html;
+    location = /500.html {
         root {{ pillar['project']['path'] }}/templates;
     }
 }
