@@ -1,7 +1,6 @@
 include:
   - common
   - python.boto
-  - supervisor.common
 
 imgseek-packages:
   pkg.installed:
@@ -34,32 +33,21 @@ iskdaemon-conf:
     - require:
       - virtualenv: imgseek-virtualenv
 
-imgseek-supervisor-conf:
+imgseek-upstart-conf:
   file.managed:
     - template: jinja
-    - name: /etc/supervisor/conf.d/imgseek.conf
-    - source: salt://supervisor/config/imgseek.conf
-    - user: root
-    - group: root
+    - name: /etc/init/iskdaemon.conf
+    - source: salt://imgseek/upstart/iskdaemon.conf
     - require:
-      - file: logs-dir
       - file: iskdaemon-conf
-      - pkg: supervisor-packages
 
-imgseek-supervisorctl-update:
-  cmd.wait:
-    - name: "supervisorctl update"
+imgseek-service:
+  service.running:
+    - name: iskdaemon
+    - enable: True
     - watch:
-      - file: imgseek-supervisor-conf
-
-supervisorctl-restart-imgseek:
-  cmd.wait:
-    - name: "supervisorctl restart imgseek"
-    - require:
-      - cmd: imgseek-supervisorctl-update
-    - watch:
-      - file: iskdaemon-conf
-      - file: imgseek-supervisor-conf
+      - file: imgseek-upstart-conf
+    - order: last
 
 file-backup_imgseek:
   file.managed:

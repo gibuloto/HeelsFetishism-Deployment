@@ -7,4 +7,5 @@ base:
     - hosts.heels-all
     - role_db
     - role_imgseek
+    - role_memcache
     - role_web

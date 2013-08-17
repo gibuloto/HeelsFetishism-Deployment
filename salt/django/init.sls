@@ -1,17 +1,16 @@
 include:
   - common
+  - django.celery
   - django.collectstatic
   - memcache.libs
   - postgresql.client
   - python
   - ssh.github
-  - supervisor.common
-  - uwsgi
 
-# django-common-packages:
-#   pkg.installed:
-#     - names:
-#       - sendmail
+django-common-packages:
+  pkg.installed:
+    - names:
+      - sendmail
 
 pil-packages:
   pkg.installed:
@@ -89,39 +88,9 @@ project-pip-requirements:
     - user: {{ pillar['system']['user'] }}
     - require:
       - cmd: install-distribute
-      # - pkg: django-common-packages
+      - pkg: django-common-packages
       - pkg: lxml-packages
       - pkg: memcache-lib-packages
       - pkg: pil-packages
       - pkg: postgresql-client-packages
       - virtualenv: project-virtualenv
-
-project-supervisor-conf:
-  file.managed:
-    - template: jinja
-    - name: /etc/supervisor/conf.d/django.conf
-    - source: salt://supervisor/config/django.conf
-    - user: root
-    - group: root
-    - require:
-      - file: logs-dir
-      - file: project-upload-dir
-      - file: uwsgi-conf
-      - pip: project-pip-requirements
-      - pkg: supervisor-packages
-
-project-supervisorctl-update:
-  cmd.wait:
-    - name: "supervisorctl update"
-    - watch:
-      - file: project-supervisor-conf
-
-supervisorctl-restart-uwsgi:
-  cmd.run:
-    - name: "supervisorctl restart uwsgi"
-    - order: last
-
-supervisorctl-restart-celeryd:
-  cmd.run:
-    - name: "supervisorctl restart celeryd"
-    - order: last

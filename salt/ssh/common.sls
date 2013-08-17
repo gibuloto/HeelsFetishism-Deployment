@@ -15,6 +15,7 @@ ssh-dir:
 
 ssh-config:
   file.managed:
+    - template: jinja
     - name: {{ pillar['system']['home_path'] }}/.ssh/config
     - source: salt://ssh/config/ssh_config
     - user: {{ pillar['system']['user'] }}

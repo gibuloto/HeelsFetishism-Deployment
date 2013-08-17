@@ -20,6 +20,7 @@ nginx-conf:
 
 nginx-mime:
   file.managed:
+    - template: jinja
     - name: /etc/nginx/mime.types
     - source: salt://nginx/config/mime.types
     - user: root

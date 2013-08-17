@@ -14,6 +14,7 @@ create-user:
 
 file-setup_locale:
   file.managed:
+    - template: jinja
     - name: {{ pillar['system']['home_path'] }}/setup_locale.sh
     - source: salt://common/scripts/setup_locale.sh
     - user: {{ pillar['system']['user'] }}

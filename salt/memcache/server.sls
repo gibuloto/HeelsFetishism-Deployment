@@ -7,20 +7,20 @@ memcache-server-packages:
     - require:
       - pkg: general-packages
 
-memcached:
-  service.running:
-    - enable: True
-    - require:
-      - pkg: memcache-server-packages
-      - file: /etc/memcached.conf
-    - watch:
-      - file: /etc/memcached.conf
-
-/etc/memcached.conf:
+memcache-conf:
   file.managed:
-    - source: salt://memcache/memcached.conf
+    - template: jinja
+    - name: /etc/memcached.conf
+    - source: salt://memcache/config/memcached.conf
     - user: root
     - group: root
     - mode: 0644
     - require:
       - pkg: memcache-server-packages
+
+memcache-service:
+  service.running:
+    - name: memcached
+    - enable: True
+    - watch:
+      - file: memcache-conf
