@@ -46,8 +46,9 @@ project-repo:
 project-upload-dir:
   file.directory:
     - name: {{ pillar['project']['path'] }}/upload/
-    - user: {{ pillar['system']['user'] }}
-    - group: {{ pillar['system']['user'] }}
+    - user: www-data
+    - group: www-data
+    - mode: 0744
     - makedirs: True
     - require:
       - git: project-repo
