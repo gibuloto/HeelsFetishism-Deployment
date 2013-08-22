@@ -41,6 +41,7 @@ uwsgi-service:
     - name: uwsgi
     - enable: True
     - watch:
+      - file: uwsgi-conf
       - file: uwsgi-upstart-conf
       - git: project-repo
     - order: last
