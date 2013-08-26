@@ -63,24 +63,24 @@ project-virtualenv:
       - user: create-user
 
 project-virtualenv-postactivate:
-  file.managed:
+  file.append:
     - template: jinja
     - name: {{ pillar['system']['home_path'] }}/.virtualenvs/postactivate
-    - source: salt://django/files/postactivate
-    - user: {{ pillar['system']['user'] }}
-    - group: {{ pillar['system']['user'] }}
-    - mode: 0775
+    - text:
+      - "cd {{ pillar['project']['path'] }}"
     - require:
       - virtualenv: project-virtualenv
 
 install-distribute:
-  cmd.run:
+  cmd.wait:
     - name: "{{ pillar['project']['virtualenv_path'] }}/bin/pip install distribute==0.7.3"
     - cwd: {{ pillar['project']['path'] }}
     - user: {{ pillar['system']['user'] }}
     - require:
       - pkg: python-packages
       - virtualenv: project-virtualenv
+    - watch:
+      - git: project-repo
 
 project-pip-requirements:
   pip.installed:
