@@ -1,0 +1,33 @@
+system:
+  user: ""
+  home_path: ""
+  log_path: ""
+
+project:
+  name: ""
+  path: ""
+  virtualenv_path: ""
+  repo_url: ""
+  domain: ""
+
+postgresql:
+  db: ""
+  user: ""
+  password: ""
+
+imgseek:
+  port: ""
+  db_path: ""
+  log_path: ""
+  virtualenv_path: ""
+
+crawler:
+  name: ""
+  path: ""
+  repo_url: ""
+  sentry_dsn: ""
+
+aws:
+ access_key: ""
+ secret_key: ""
+ bucket: ""
