@@ -1,10 +1,22 @@
-Salt Stack States
-=================
+HeelsFetishism-Deployment
+=========================
 
-[Salt Stack](http://docs.saltstack.com/)
+SaltStack States for [HeelsFetishism](http://heelsfetishism.com/)
+
+
+## States
+
+* Django
+* PostgreSQL
+* nginx
+* uWSGI
+* Memcached
+* imgSeek
 
 
 ## Usage
+
+Place your pillar settings in `/srv/pillar/settings.sls`
 
 ``` bash
 # on salt-master server
