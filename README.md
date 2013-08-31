@@ -12,6 +12,7 @@ SaltStack States for [HeelsFetishism](http://heelsfetishism.com/)
 * uWSGI
 * Memcached
 * imgSeek
+* Node.js
 
 
 ## Usage
