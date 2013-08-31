@@ -22,14 +22,11 @@ EOF
 }
 
 function setup_salt_minion {
-    echo "deb http://ppa.launchpad.net/saltstack/salt/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/saltstack.list
-    apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0E27C0A6
+    apt-get install wget
 
-    apt-get update
+    # install salt-minion
+    wget -O - http://bootstrap.saltstack.org | sudo sh
 
-    apt-get -y install salt-minion
-
-    # append
     echo "master: $SALT_MASTER_IP" >> /etc/salt/minion
 }
 
