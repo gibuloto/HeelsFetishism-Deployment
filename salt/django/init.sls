@@ -63,11 +63,13 @@ project-virtualenv:
       - user: create-user
 
 project-virtualenv-postactivate:
-  file.append:
+  file.managed:
     - template: jinja
-    - name: {{ pillar['system']['home_path'] }}/.virtualenvs/postactivate
-    - text:
-      - "cd {{ pillar['project']['path'] }}"
+    - name: {{ pillar['project']['virtualenv_path'] }}/bin/postactivate
+    - source: salt://django/files/postactivate
+    - user: {{ pillar['system']['user'] }}
+    - group: {{ pillar['system']['user'] }}
+    - mode: 0775
     - require:
       - virtualenv: project-virtualenv
 

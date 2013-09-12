@@ -8,4 +8,5 @@
 26 5    * * 1,3,5,0   {{ pillar['system']['user'] }}   cd {{ pillar['system']['home_path'] }}/blackwidow && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl garypeppergirl
 26 8    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['system']['home_path'] }}/blackwidow && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl ohmyvogue
 26 */6  * * *         {{ pillar['system']['user'] }}   cd {{ pillar['system']['home_path'] }}/blackwidow && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl pinterest
+26 3    */2 * *       {{ pillar['system']['user'] }}   cd {{ pillar['system']['home_path'] }}/blackwidow && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl tvcclub
 26 8    * * 1,3,5     {{ pillar['system']['user'] }}   cd {{ pillar['system']['home_path'] }}/blackwidow && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl wendyslookbook
