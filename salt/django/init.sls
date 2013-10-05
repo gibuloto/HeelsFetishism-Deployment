@@ -35,7 +35,7 @@ project-repo:
   git.latest:
     - name: {{ pillar['project']['repo_url'] }}
     - rev: master
-    - target: {{ pillar['project']['path'] }}
+    - target: {{ pillar['project']['repo_path'] }}
     - runas: {{ pillar['system']['user'] }}
     - require:
       - file: github-private-key
@@ -87,7 +87,7 @@ install-distribute:
 project-pip-requirements:
   pip.installed:
     - bin_env: {{ pillar['project']['virtualenv_path'] }}
-    - requirements: {{ pillar['project']['path'] }}/requirements.txt
+    - requirements: {{ pillar['project']['repo_path'] }}/requirements.txt
     - user: {{ pillar['system']['user'] }}
     - require:
       - cmd: install-distribute
