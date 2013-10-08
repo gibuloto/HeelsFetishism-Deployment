@@ -23,3 +23,7 @@ Place your pillar settings in `/srv/pillar/settings.sls`
 # on salt-master server
 $ sudo salt '*' state.highstate
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vinta/heelsfetishism-deployment/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
