@@ -1,35 +1,12 @@
 include:
-  - common
-  - django.celery
-  - django.collectstatic
-  - memcache.libs
+  - common.build
+  - common.email
+  - memcache.client
   - postgresql.client
   - python
+  - python.lxml
+  - python.pil
   - ssh.github
-
-django-common-packages:
-  pkg.installed:
-    - names:
-      - sendmail
-
-pil-packages:
-  pkg.installed:
-    - names:
-      - python-imaging
-      - libjpeg-dev
-      - libfreetype6-dev
-      - liblcms1-dev
-      - zlib1g-dev
-    - require:
-      - pkg: python-packages
-
-lxml-packages:
-  pkg.installed:
-    - names:
-      - libxml2-dev
-      - libxslt1-dev
-    - require:
-      - pkg: general-packages
 
 project-repo:
   git.latest:
@@ -40,8 +17,6 @@ project-repo:
     - require:
       - file: github-private-key
       - file: github-public-key
-      - pkg: general-packages
-      - user: create-user
 
 project-upload-dir:
   file.directory:
@@ -56,33 +31,33 @@ project-upload-dir:
 project-virtualenv:
   virtualenv.manage:
     - name: {{ pillar['project']['virtualenv_path'] }}
-    - no_site_packages: true
+    - system_site_packages: False
+    - pip: True
     - runas: {{ pillar['system']['user'] }}
     - require:
       - pkg: python-packages
-      - user: create-user
 
 project-virtualenv-postactivate:
   file.managed:
     - template: jinja
     - name: {{ pillar['project']['virtualenv_path'] }}/bin/postactivate
-    - source: salt://django/files/postactivate
+    - source: salt://django/postactivate
     - user: {{ pillar['system']['user'] }}
     - group: {{ pillar['system']['user'] }}
     - mode: 0775
     - require:
       - virtualenv: project-virtualenv
 
-install-distribute:
-  cmd.wait:
-    - name: "{{ pillar['project']['virtualenv_path'] }}/bin/pip install distribute==0.7.3"
-    - cwd: {{ pillar['project']['path'] }}
-    - user: {{ pillar['system']['user'] }}
-    - require:
-      - pkg: python-packages
-      - virtualenv: project-virtualenv
-    - watch:
-      - git: project-repo
+# install-distribute:
+#   cmd.wait:
+#     - name: "{{ pillar['project']['virtualenv_path'] }}/bin/pip install distribute==0.7.3"
+#     - cwd: {{ pillar['project']['path'] }}
+#     - user: {{ pillar['system']['user'] }}
+#     - require:
+#       - pkg: python-packages
+#       - virtualenv: project-virtualenv
+#     - watch:
+#       - git: project-repo
 
 project-pip-requirements:
   pip.installed:
@@ -90,10 +65,10 @@ project-pip-requirements:
     - requirements: {{ pillar['project']['repo_path'] }}/requirements.txt
     - user: {{ pillar['system']['user'] }}
     - require:
-      - cmd: install-distribute
-      - pkg: django-common-packages
-      - pkg: lxml-packages
-      - pkg: memcache-lib-packages
-      - pkg: pil-packages
+      # - cmd: install-distribute
+      - pkg: email-packages
+      - pkg: lxml-libs-packages
+      - pkg: memcache-client-packages
+      - pkg: pil-libs-packages
       - pkg: postgresql-client-packages
       - virtualenv: project-virtualenv

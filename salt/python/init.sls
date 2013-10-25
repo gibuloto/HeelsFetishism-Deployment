@@ -1,5 +1,5 @@
 include:
-  - common
+  - common.build
 
 python-packages:
   pkg.installed:
@@ -11,4 +11,4 @@ python-packages:
       - python-virtualenv
       - virtualenvwrapper
     - require:
-      - pkg: general-packages
+      - pkg: build-packages

@@ -1,5 +1,4 @@
 include:
-  - common
   - ssh.common
 
 github-private-key:

@@ -1,5 +1,5 @@
 include:
-  - common
+  - common.build
 
 postgresql-client-packages:
   pkg.installed:
@@ -8,4 +8,4 @@ postgresql-client-packages:
       - postgresql-contrib-9.1
       - libpq-dev
     - require:
-      - pkg: general-packages
+      - pkg: build-packages

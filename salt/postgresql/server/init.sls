@@ -1,7 +1,5 @@
 include:
-  - common
-  - python.boto
-  - postgresql.client
+  - common.build
 
 postgresql-server-packages:
   pkg.installed:
@@ -10,10 +8,31 @@ postgresql-server-packages:
       - postgresql-contrib-9.1
       - libpq-dev
     - require:
-      - pkg: general-packages
+      - pkg: build-packages
 
-postgresql:
+postgresql-conf:
+  file.managed:
+    - template: jinja
+    - name: /etc/postgresql/9.1/main/postgresql.conf
+    - source: salt://postgresql/server/postgresql.conf
+    - user: postgres
+    - group: postgres
+    - require:
+      - pkg: postgresql-server-packages
+
+postgresql-hba:
+  file.managed:
+    - template: jinja
+    - name: /etc/postgresql/9.1/main/pg_hba.conf
+    - source: salt://postgresql/server/pg_hba.conf
+    - user: postgres
+    - group: postgres
+    - require:
+      - pkg: postgresql-server-packages
+
+postgresql-service:
   service.running:
+    - name: postgresql
     - enable: True
     - watch:
       - file: postgresql-conf
@@ -25,7 +44,7 @@ postgresql-user:
     - password: {{ pillar['postgresql']['password'] }}
     - runas: postgres
     - require:
-      - service: postgresql
+      - service: postgresql-service
       - file: postgresql-conf
       - file: postgresql-hba
 
@@ -39,44 +58,22 @@ postgresql-db:
     - template: template0
     - runas: postgres
     - require:
-      - service: postgresql
+      - service: postgresql-service
       - postgres_user: postgresql-user
       - file: postgresql-conf
       - file: postgresql-hba
 
-postgresql-conf:
-  file.managed:
-    - template: jinja
-    - name: /etc/postgresql/9.1/main/postgresql.conf
-    - source: salt://postgresql/server/config/postgresql.conf
-    - user: postgres
-    - group: postgres
-    - require:
-      - pkg: postgresql-server-packages
-
-postgresql-hba:
-  file.managed:
-    - template: jinja
-    - name: /etc/postgresql/9.1/main/pg_hba.conf
-    - source: salt://postgresql/server/config/pg_hba.conf
-    - user: postgres
-    - group: postgres
-    - require:
-      - pkg: postgresql-server-packages
-
 file-backup_postgresql:
   file.managed:
     - template: jinja
-    - name: {{ pillar['system']['home_path'] }}/backup_postgresql.py
-    - source: salt://postgresql/server/scripts/backup_postgresql.py
+    - name: "{{ pillar['system']['home_path'] }}/backup_postgresql.py"
+    - source: salt://postgresql/server/backup_postgresql.py
     - user: {{ pillar['system']['user'] }}
     - group: {{ pillar['system']['user'] }}
     - mode: 0777
     - recurse:
       - user
       - group
-    - require:
-      - user: create-user
 
 crontab-backup_postgresql:
   cron.present:

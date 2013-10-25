@@ -1,6 +1,3 @@
-include:
-  - python
-
 boto-packages:
   pip.installed:
     - names:

@@ -5,6 +5,7 @@ base:
 
   'heels-all':
     - hosts.heels-all
+    - crontab.crawler
     - role_db
     - role_imgseek
     - role_memcache

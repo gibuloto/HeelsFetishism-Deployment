@@ -1,17 +1,13 @@
-include:
-  - common
-  - django
-
 uwsgi:
   pip.installed:
     - require:
       - pkg: python-packages
 
-uwsgi-conf:
+uwsgi-apps-available:
   file.managed:
     - template: jinja
-    - name: /etc/uwsgi/apps-available/default.ini
-    - source: salt://uwsgi/config/default.ini
+    - name: /etc/uwsgi/apps-available/heelsfetishism.ini
+    - source: salt://uwsgi/heelsfetishism.ini
     - makedirs: True
     - user: root
     - group: root
@@ -20,28 +16,28 @@ uwsgi-conf:
       - file: logs-dir
       - virtualenv: project-virtualenv
 
-uwsgi-app-link:
+uwsgi-apps-enabled:
   file.symlink:
-    - name: /etc/uwsgi/apps-enabled/default.ini
-    - target: /etc/uwsgi/apps-available/default.ini
+    - name: /etc/uwsgi/apps-enabled/heelsfetishism.ini
+    - target: /etc/uwsgi/apps-available/heelsfetishism.ini
     - makedirs: True
     - require:
-      - file: uwsgi-conf
+      - file: uwsgi-apps-available
 
 uwsgi-upstart-conf:
   file.managed:
     - template: jinja
     - name: /etc/init/uwsgi.conf
-    - source: salt://uwsgi/upstart/uwsgi.conf
+    - source: salt://uwsgi/uwsgi.conf
     - require:
-      - file: uwsgi-app-link
+      - file: uwsgi-apps-enabled
 
 uwsgi-service:
   service.running:
     - name: uwsgi
     - enable: True
     - watch:
-      - file: uwsgi-conf
+      - file: uwsgi-apps-available
       - file: uwsgi-upstart-conf
       - git: project-repo
     - order: last

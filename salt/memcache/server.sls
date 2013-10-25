@@ -1,17 +1,12 @@
-include:
-  - common
-
 memcache-server-packages:
   pkg.installed:
     - name: memcached
-    - require:
-      - pkg: general-packages
 
 memcache-conf:
   file.managed:
     - template: jinja
     - name: /etc/memcached.conf
-    - source: salt://memcache/config/memcached.conf
+    - source: salt://memcache/memcached.conf
     - user: root
     - group: root
     - mode: 0644

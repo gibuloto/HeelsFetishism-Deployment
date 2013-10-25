@@ -5,7 +5,7 @@ celeryd-upstart-conf:
   file.managed:
     - template: jinja
     - name: /etc/init/celeryd.conf
-    - source: salt://django/upstart/celeryd.conf
+    - source: salt://django/celeryd.conf
 
 celeryd-service:
   service.running:
@@ -15,3 +15,9 @@ celeryd-service:
       - file: celeryd-upstart-conf
       - git: project-repo
     - order: last
+
+celery-logrotate:
+  file.managed:
+    - template: jinja
+    - name: /etc/logrotate.d/celery
+    - source: salt://celery/celery_logrotate

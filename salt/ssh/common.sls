@@ -1,6 +1,3 @@
-include:
-  - common
-
 ssh-dir:
   file.directory:
     - name: {{ pillar['system']['home_path'] }}/.ssh/
@@ -10,14 +7,12 @@ ssh-dir:
     - recurse:
       - user
       - group
-    - require:
-      - user: create-user
 
 ssh-config:
   file.managed:
     - template: jinja
     - name: {{ pillar['system']['home_path'] }}/.ssh/config
-    - source: salt://ssh/config/ssh_config
+    - source: salt://ssh/ssh_config
     - user: {{ pillar['system']['user'] }}
     - group: {{ pillar['system']['user'] }}
     - require:

@@ -1,5 +1,5 @@
 include:
-  - common
+  - python
   - python.boto
 
 imgseek-packages:
@@ -14,7 +14,8 @@ imgseek-virtualenv:
   virtualenv.manage:
     - name: {{ pillar['imgseek']['virtualenv_path'] }}
     - requirements: salt://imgseek/config/requirements.txt
-    - no_site_packages: true
+    - system_site_packages: False
+    - pip: True
     - runas: {{ pillar['system']['user'] }}
     - require:
       - pkg: imgseek-packages
@@ -60,8 +61,6 @@ file-backup_imgseek:
     - recurse:
       - user
       - group
-    - require:
-      - user: create-user
 
 crontab-backup_imgseek:
   cron.present:
