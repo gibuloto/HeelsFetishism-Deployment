@@ -1,0 +1,2 @@
+
+26 9    * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py post_feature_to_tumblr
