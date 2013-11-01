@@ -6,6 +6,7 @@ pil-libs-packages:
   pkg.installed:
     - names:
       - libfreetype6-dev
+      - libjpeg-dev
       - liblcms1-dev
       - libtiff4-dev
       - libwebp-dev
