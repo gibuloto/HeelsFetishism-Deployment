@@ -3,4 +3,5 @@ build-packages:
     - names:
       - build-essential
       - git-core
+      - mercurial
       - subversion
