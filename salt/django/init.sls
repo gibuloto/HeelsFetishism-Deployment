@@ -1,6 +1,5 @@
 include:
   - common.build
-  - common.email
   - memcache.client
   - postgresql.client
   - python
@@ -48,25 +47,12 @@ project-virtualenv-postactivate:
     - require:
       - virtualenv: project-virtualenv
 
-# install-distribute:
-#   cmd.wait:
-#     - name: "{{ pillar['project']['virtualenv_path'] }}/bin/pip install distribute==0.7.3"
-#     - cwd: {{ pillar['project']['path'] }}
-#     - user: {{ pillar['system']['user'] }}
-#     - require:
-#       - pkg: python-packages
-#       - virtualenv: project-virtualenv
-#     - watch:
-#       - git: project-repo
-
 project-pip-requirements:
   pip.installed:
     - bin_env: {{ pillar['project']['virtualenv_path'] }}
     - requirements: {{ pillar['project']['repo_path'] }}/requirements.txt
     - user: {{ pillar['system']['user'] }}
     - require:
-      # - cmd: install-distribute
-      - pkg: email-packages
       - pkg: lxml-libs-packages
       - pkg: memcache-client-packages
       - pkg: pil-libs-packages
