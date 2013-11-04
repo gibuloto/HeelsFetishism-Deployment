@@ -19,7 +19,7 @@ server {
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
     location /favicon.ico {
-        alias {{ pillar['project']['path'] }}/static/favicon.ico;
+        alias {{ pillar['project']['path'] }}/static/favicons/favicon.ico;
         access_log off;
     }
 
