@@ -5,7 +5,7 @@ celeryd-upstart-conf:
   file.managed:
     - template: jinja
     - name: /etc/init/celeryd.conf
-    - source: salt://django/celeryd.conf
+    - source: salt://celery/celeryd.conf
 
 celeryd-service:
   service.running:
