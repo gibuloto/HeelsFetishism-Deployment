@@ -6,6 +6,7 @@ system:
 project:
   name: ""
   path: ""
+  repo_path: ""
   virtualenv_path: ""
   repo_url: ""
   domain: ""
