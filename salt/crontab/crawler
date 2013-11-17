@@ -3,9 +3,10 @@
 0 */5  * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py fetch_likes instagram
 0 */4  * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py fetch_likes tumblr
 
-0 3    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl atlanticpacific
-0 4    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl beautylegmm
-0 5    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl carolinakrews
+0 2    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl atlanticpacific
+0 3    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl beautylegmm
+0 4    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl carolinakrews
+0 5    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl extrapetite
 0 3    * * 1,3,5     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl fancy
 0 4    * * 1,3,5     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl garypeppergirl
 0 6    * * 2,4,6     {{ pillar['system']['user'] }}   cd {{ pillar['crawler']['path'] }} && {{ pillar['project']['virtualenv_path'] }}/bin/scrapy crawl itscamilleco
