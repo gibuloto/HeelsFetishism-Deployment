@@ -1,5 +1,4 @@
 include:
-  - common.build
   - python
 
 pil-libs-packages:
@@ -14,5 +13,4 @@ pil-libs-packages:
       - tk8.5-dev
       - zlib1g-dev
     - require:
-      - pkg: build-packages
       - pkg: python-packages
