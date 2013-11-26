@@ -1,7 +1,5 @@
-Asia/Taipei:
-  timezone.system:
-    - utc: True
-    - order: 1
+include:
+    - common.time
 
 en_US.UTF-8:
   locale.system:
@@ -30,6 +28,12 @@ logs-dir:
     - group: {{ pillar['system']['user'] }}
     - makedirs: True
     - order: 4
+
+hostname:
+  host.present:
+    - ip: 127.0.1.1
+    - names:
+      - {{ grains['host'] }}
 
 terminal-packages:
   pkg.installed:

@@ -7,7 +7,7 @@ s3cmd-config:
   file.managed:
     - template: jinja
     - name: {{ pillar['system']['home_path'] }}/.s3cfg
-    - source: salt://common/s3cfg.template
+    - source: salt://s3cmd/s3cfg.template
     - user: {{ pillar['system']['user'] }}
     - group: {{ pillar['system']['user'] }}
     - mode: 0600
