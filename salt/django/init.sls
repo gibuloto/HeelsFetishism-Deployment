@@ -59,7 +59,7 @@ project-pip-requirements:
       - pkg: postgresql-client-packages
       - virtualenv: project-virtualenv
 
-environ-var:
+environ-var-HF_ENV:
   file.append:
     - name: {{ pillar['system']['home_path'] }}/.bashrc
     - text: "export HF_ENV=prod"
