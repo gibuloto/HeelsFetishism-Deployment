@@ -57,7 +57,7 @@ file-backup_imgseek:
     - source: salt://imgseek/scripts/backup_imgseek.py
     - user: {{ pillar['system']['user'] }}
     - group: {{ pillar['system']['user'] }}
-    - mode: 0777
+    - mode: 0755
     - recurse:
       - user
       - group

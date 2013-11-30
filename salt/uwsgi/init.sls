@@ -1,3 +1,7 @@
+include:
+  - django
+  - newrelic.python
+
 uwsgi:
   pip.installed:
     - require:
@@ -24,6 +28,14 @@ uwsgi-apps-enabled:
     - require:
       - file: uwsgi-apps-available
 
+newrelic-uwsgi-config:
+  file.managed:
+    - template: jinja
+    - name: {{ pillar['system']['home_path'] }}/newrelic_uwsgi.ini
+    - source: salt://uwsgi/newrelic.ini
+    - user: {{ pillar['system']['user'] }}
+    - group: {{ pillar['system']['user'] }}
+
 uwsgi-upstart-conf:
   file.managed:
     - template: jinja
@@ -31,6 +43,8 @@ uwsgi-upstart-conf:
     - source: salt://uwsgi/uwsgi.conf
     - require:
       - file: uwsgi-apps-enabled
+      - file: newrelic-uwsgi-config
+      - pip: newrelic-python-package
 
 uwsgi-service:
   service.running:

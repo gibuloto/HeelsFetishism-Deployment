@@ -26,6 +26,7 @@ logs-dir:
     - name: {{ pillar['system']['log_path'] }}
     - user: {{ pillar['system']['user'] }}
     - group: {{ pillar['system']['user'] }}
+    - mode: 0755
     - makedirs: True
     - order: 4
 
