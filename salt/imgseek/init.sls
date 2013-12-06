@@ -42,13 +42,18 @@ imgseek-upstart-conf:
     - require:
       - file: iskdaemon-conf
 
+# imgseek-service:
+#   service.running:
+#     - name: iskdaemon
+#     - enable: True
+#     - watch:
+#       - file: imgseek-upstart-conf
+#     - order: last
+
 imgseek-service:
-  service.running:
+  service.dead:
     - name: iskdaemon
-    - enable: True
-    - watch:
-      - file: imgseek-upstart-conf
-    - order: last
+    - enable: False
 
 file-backup_imgseek:
   file.managed:
