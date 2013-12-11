@@ -1,7 +1,6 @@
 .DS_Store
 .git/
 .gitignore
-linode_stackscripts/
 master
-rsync_exclude.txt
 README.md
+rsync_exclude.txt

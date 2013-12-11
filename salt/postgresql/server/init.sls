@@ -30,10 +30,16 @@ postgresql-hba:
     - require:
       - pkg: postgresql-server-packages
 
+kernel.shmmax:
+  sysctl.present:
+    - value: 577293516
+
 postgresql-service:
   service.running:
     - name: postgresql
     - enable: True
+    - require:
+      - sysctl: kernel.shmmax
     - watch:
       - file: postgresql-conf
       - file: postgresql-hba

@@ -1,3 +1,6 @@
+include:
+  - ssh.common
+
 vinta_air:
   ssh_auth.present:
     - source: salt://ssh/keys/vinta/id_rsa.air.pub
