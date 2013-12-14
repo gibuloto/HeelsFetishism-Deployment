@@ -1,5 +1,5 @@
-# every 5 hours
-0 */5 * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py post_tumblr_bot
+# every 4 hours
+0 */4 * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py post_tumblr_bot
 
-# every 3 hours
-0 */3 * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py post_twitter_bot
+# every 2 hours
+0 */2 * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py post_twitter_bot
