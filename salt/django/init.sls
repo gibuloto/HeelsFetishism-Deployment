@@ -62,4 +62,14 @@ project-pip-requirements:
 environ-var-HF_ENV:
   file.append:
     - name: {{ pillar['system']['home_path'] }}/.bashrc
-    - text: "export HF_ENV=prod"
+    - text: "export HF_ENV={{ pillar['project']['HF_ENV'] }}"
+
+environ-var-HF_TOKEN:
+  file.append:
+    - name: {{ pillar['system']['home_path'] }}/.bashrc
+    - text: "export HF_TOKEN={{ pillar['project']['HF_TOKEN'] }}"
+
+environ-var-HF_SUBMIT_API_URL:
+  file.append:
+    - name: {{ pillar['system']['home_path'] }}/.bashrc
+    - text: "export HF_SUBMIT_API_URL={{ pillar['project']['HF_SUBMIT_API_URL'] }}"

@@ -1,8 +1,8 @@
-SENTRY_DSN = "{{ pillar['crawler']['sentry_dsn'] }}"
+LOG_FILE = "{{ pillar['system']['log_path'] }}/scrapy.log"
+LOG_STDOUT = True
 
 EXTENSIONS = {
     'scrapy_sentry.extensions.Errors': 10,
 }
 
-# where Django settings.py placed
-DJANGO_SETTINGS_DIR = "{{ pillar['project']['path'] }}/{{ pillar['project']['name'] }}"
+SENTRY_DSN = "{{ pillar['crawler']['sentry_dsn'] }}"

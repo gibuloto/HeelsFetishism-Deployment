@@ -32,6 +32,3 @@ aws:
  access_key: ""
  secret_key: ""
  bucket: ""
-
-newrelic:
-  license_key: ""
