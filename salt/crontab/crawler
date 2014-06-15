@@ -1,3 +1,5 @@
+HF_TOKEN={{ pillar['project']['HF_TOKEN'] }}
+HF_SUBMIT_API_URL={{ pillar['project']['HF_SUBMIT_API_URL'] }}
 
 0 */5  * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py fetch_likes flickr
 0 */5  * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py fetch_likes instagram
