@@ -4,8 +4,8 @@ include:
 postgresql-server-packages:
   pkg.installed:
     - names:
-      - postgresql-9.1
-      - postgresql-contrib-9.1
+      - postgresql
+      - postgresql-contrib
       - libpq-dev
     - require:
       - pkg: build-packages
@@ -13,7 +13,7 @@ postgresql-server-packages:
 postgresql-conf:
   file.managed:
     - template: jinja
-    - name: /etc/postgresql/9.1/main/postgresql.conf
+    - name: /etc/postgresql/9.3/main/postgresql.conf
     - source: salt://postgresql/server/postgresql.conf
     - user: postgres
     - group: postgres
@@ -23,7 +23,7 @@ postgresql-conf:
 postgresql-hba:
   file.managed:
     - template: jinja
-    - name: /etc/postgresql/9.1/main/pg_hba.conf
+    - name: /etc/postgresql/9.3/main/pg_hba.conf
     - source: salt://postgresql/server/pg_hba.conf
     - user: postgres
     - group: postgres

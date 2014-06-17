@@ -1,3 +1,10 @@
+scrapy-packages:
+  pkg.installed:
+    - names:
+      - libffi-dev
+    - require:
+      - pkg: build-packages
+
 crawler-repo:
   git.latest:
     - name: {{ pillar['crawler']['repo_url'] }}

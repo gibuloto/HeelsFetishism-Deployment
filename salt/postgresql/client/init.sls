@@ -4,8 +4,8 @@ include:
 postgresql-client-packages:
   pkg.installed:
     - names:
-      - postgresql-client-9.1
-      - postgresql-contrib-9.1
+      - postgresql-client
+      - postgresql-contrib
       - libpq-dev
     - require:
       - pkg: build-packages

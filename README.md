@@ -6,6 +6,7 @@ SaltStack States for [HeelsFetishism](http://heelsfetishism.com/)
 
 ## States
 
+* Ubuntu 14.04
 * Django
 * PostgreSQL
 * nginx
@@ -20,8 +21,11 @@ SaltStack States for [HeelsFetishism](http://heelsfetishism.com/)
 Place your pillar settings in `/srv/pillar/settings.sls`
 
 ``` bash
-# on salt-master server
-$ sudo salt '*' state.highstate
+# install salt-minion
+$ wget -O - http://bootstrap.saltstack.org | sudo sh
+
+# run without salt-master
+$ sudo salt-call state.highstate --local
 ```
 
 

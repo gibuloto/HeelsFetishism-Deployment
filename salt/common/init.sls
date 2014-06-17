@@ -32,7 +32,7 @@ logs-dir:
 
 hostname:
   host.present:
-    - ip: 127.0.1.1
+    - ip: 127.0.0.1
     - names:
       - {{ grains['host'] }}
 
@@ -41,6 +41,5 @@ terminal-packages:
     - names:
       - curl
       - htop
-      - mosh
       - screen
       - vim

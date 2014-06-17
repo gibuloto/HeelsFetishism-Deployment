@@ -2,5 +2,6 @@
 .git/
 .gitignore
 master
+minion
 README.md
 rsync_exclude.txt
