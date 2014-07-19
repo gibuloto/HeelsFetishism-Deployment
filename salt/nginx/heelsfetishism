@@ -8,58 +8,16 @@ server {
     listen 80;
     server_name {{ pillar['project']['domain'] }};
 
-    access_log {{ pillar['system']['log_path'] }}/nginx.log;
-    error_log {{ pillar['system']['log_path'] }}/nginx.log;
+    include includes/heelsfetishism-common;
+}
 
-    client_max_body_size 50m;
+server {
+    listen 443;
+    server_name {{ pillar['project']['domain'] }};
 
-    gzip on;
-    gzip_min_length 1024;
-    gzip_buffers 16 8k;
-    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/ssl-unified.crt;
+    ssl_certificate_key /etc/nginx/ssl/ssl.key;
 
-    location /favicon.ico {
-        alias {{ pillar['project']['path'] }}/static/favicons/favicon.ico;
-        access_log off;
-    }
-
-    location /robots.txt {
-        alias {{ pillar['project']['path'] }}/static/robots.txt;
-        access_log off;
-    }
-
-    location /humans.txt {
-        alias {{ pillar['project']['path'] }}/static/humans.txt;
-        access_log off;
-    }
-
-    location /static/ {
-        alias {{ pillar['project']['path'] }}/static_root/;
-        access_log off;
-    }
-
-    location /upload/ {
-        alias {{ pillar['project']['path'] }}/upload/;
-        access_log off;
-    }
-
-    location / {
-        include uwsgi_params;
-        uwsgi_pass 127.0.0.1:3031;
-    }
-
-    error_page 403 /403.html;
-    location = /403.html {
-        root {{ pillar['project']['path'] }}/templates;
-    }
-
-    error_page 404 /404.html;
-    location = /404.html {
-        root {{ pillar['project']['path'] }}/templates;
-    }
-
-    error_page 500 /500.html;
-    location = /500.html {
-        root {{ pillar['project']['path'] }}/templates;
-    }
+    include includes/heelsfetishism-common;
 }

@@ -30,6 +30,15 @@ nginx-mime:
     - require:
       - pkg: nginx-packages
 
+nginx-includes-common:
+  file.managed:
+    - template: jinja
+    - name: /etc/nginx/includes/heelsfetishism-common
+    - source: salt://nginx/includes/heelsfetishism-common
+    - makedirs: True
+    - require:
+      - pkg: nginx-packages
+
 nginx-sites-available:
   file.managed:
     - template: jinja
@@ -59,3 +68,4 @@ nginx-service:
       - file: nginx-conf
       - file: nginx-mime
       - file: nginx-sites-available
+      - file: nginx-includes-common
