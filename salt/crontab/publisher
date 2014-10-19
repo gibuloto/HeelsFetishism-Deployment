@@ -1,3 +1,6 @@
+# every 3 hours
+0 */3 * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py post_facebook_bot
+
 # every 4 hours
 0 */4 * * *         {{ pillar['system']['user'] }}   {{ pillar['project']['virtualenv_path'] }}/bin/python {{ pillar['project']['path'] }}/manage.py post_tumblr_bot
 
