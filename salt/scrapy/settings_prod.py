@@ -6,3 +6,6 @@ EXTENSIONS = {
 }
 
 SENTRY_DSN = "{{ pillar['crawler']['sentry_dsn'] }}"
+
+SEEMODEL_USERNAME = "{{ pillar['crawler']['seemodel_username'] }}"
+SEEMODEL_PASSWORD = "{{ pillar['crawler']['seemodel_password'] }}"
