@@ -10,6 +10,9 @@ project:
   virtualenv_path: ""
   repo_url: ""
   domain: ""
+  HF_ENV: ""
+  HF_TOKEN: ""
+  HF_SUBMIT_API_URL: ""
 
 postgresql:
   db: ""
@@ -27,8 +30,11 @@ crawler:
   path: ""
   repo_url: ""
   sentry_dsn: ""
+  seemodel_username: ""
+  seemodel_password: ""
 
 aws:
- access_key: ""
- secret_key: ""
- bucket: ""
+  access_key: ""
+  secret_key: ""
+  bucket: ""
+  bucket_backup: ""

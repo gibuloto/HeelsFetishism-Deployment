@@ -10,7 +10,7 @@ POSTGRESQL_DB = "{{ pillar['postgresql']['db'] }}"
 
 AWS_ACCESS_KEY_ID = "{{ pillar['aws']['access_key'] }}"
 AWS_SECRET_ACCESS_KEY = "{{ pillar['aws']['secret_key'] }}"
-AWS_STORAGE_BUCKET_NAME = "{{ pillar['aws']['bucket'] }}"
+AWS_STORAGE_BUCKET_NAME = "{{ pillar['aws']['bucket_backup'] }}"
 
 now = datetime.now()
 filename = 'postgresql_%s.sql.gz' % (now.strftime('%Y-%m-%d_%H-%M'))

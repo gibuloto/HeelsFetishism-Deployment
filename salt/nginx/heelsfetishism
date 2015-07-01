@@ -1,23 +1,24 @@
 server {
     listen 80;
-    server_name www.{{ pillar['project']['domain'] }};
-    return 301 $scheme://{{ pillar['project']['domain'] }}$request_uri;
+    server_name {{ pillar['project']['domain'] }};
+    return 301 https://{{ pillar['project']['domain'] }}$request_uri;
 }
 
 server {
     listen 80;
-    server_name {{ pillar['project']['domain'] }};
-
-    include includes/heelsfetishism-common;
+    server_name www.{{ pillar['project']['domain'] }};
+    return 301 https://{{ pillar['project']['domain'] }}$request_uri;
 }
 
 server {
     listen 443;
     server_name {{ pillar['project']['domain'] }};
 
+    add_header Strict-Transport-Security max-age=2592000;
+
     ssl on;
-    ssl_certificate /etc/nginx/ssl/ssl-unified.crt;
-    ssl_certificate_key /etc/nginx/ssl/ssl.key;
+    ssl_certificate /etc/nginx/ssl/cert_chain.crt;
+    ssl_certificate_key /etc/nginx/ssl/heelsfetishism_com.key;
 
     include includes/heelsfetishism-common;
 }
