@@ -11,7 +11,22 @@ server {
 }
 
 server {
-    listen 443;
+    listen 443 ssl;
+    server_name www.{{ pillar['project']['domain'] }};
+    return 301 https://{{ pillar['project']['domain'] }}$request_uri;
+
+    add_header Strict-Transport-Security max-age=2592000;
+
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/cert_chain.crt;
+    ssl_certificate_key /etc/nginx/ssl/heelsfetishism_com.key;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+    include includes/heelsfetishism-common;
+}
+
+server {
+    listen 443 ssl;
     server_name {{ pillar['project']['domain'] }};
 
     add_header Strict-Transport-Security max-age=2592000;
@@ -19,6 +34,7 @@ server {
     ssl on;
     ssl_certificate /etc/nginx/ssl/cert_chain.crt;
     ssl_certificate_key /etc/nginx/ssl/heelsfetishism_com.key;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
 
     include includes/heelsfetishism-common;
 }
