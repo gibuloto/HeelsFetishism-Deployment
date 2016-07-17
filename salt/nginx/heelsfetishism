@@ -7,32 +7,34 @@ server {
 server {
     listen 80;
     server_name {{ pillar['project']['domain'] }};
-    return 301 https://{{ pillar['project']['domain'] }}$request_uri;
-}
-
-server {
-    listen 443 ssl;
-    server_name www.{{ pillar['project']['domain'] }};
-    return 301 https://{{ pillar['project']['domain'] }}$request_uri;
-
-    ssl on;
-    ssl_certificate /etc/nginx/ssl/cert_chain.crt;
-    ssl_certificate_key /etc/nginx/ssl/heelsfetishism_com.key;
-
-    add_header Strict-Transport-Security max-age=2592000;
+    # return 301 https://{{ pillar['project']['domain'] }}$request_uri;
 
     include includes/heelsfetishism-common;
 }
 
-server {
-    listen 443 ssl;
-    server_name {{ pillar['project']['domain'] }};
+# server {
+#     listen 443 ssl;
+#     server_name www.{{ pillar['project']['domain'] }};
+#     return 301 https://{{ pillar['project']['domain'] }}$request_uri;
 
-    ssl on;
-    ssl_certificate /etc/nginx/ssl/cert_chain.crt;
-    ssl_certificate_key /etc/nginx/ssl/heelsfetishism_com.key;
+#     ssl on;
+#     ssl_certificate /etc/nginx/ssl/cert_chain.crt;
+#     ssl_certificate_key /etc/nginx/ssl/heelsfetishism_com.key;
 
-    add_header Strict-Transport-Security max-age=2592000;
+#     add_header Strict-Transport-Security max-age=2592000;
 
-    include includes/heelsfetishism-common;
-}
+#     include includes/heelsfetishism-common;
+# }
+
+# server {
+#     listen 443 ssl;
+#     server_name {{ pillar['project']['domain'] }};
+
+#     ssl on;
+#     ssl_certificate /etc/nginx/ssl/cert_chain.crt;
+#     ssl_certificate_key /etc/nginx/ssl/heelsfetishism_com.key;
+
+#     add_header Strict-Transport-Security max-age=2592000;
+
+#     include includes/heelsfetishism-common;
+# }
